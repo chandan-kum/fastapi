@@ -17,14 +17,6 @@ async def get_user():
 
 
 @router.post("/")
-async def post_user(user: UserModel, e_url: UploadFile = File(...)):
-    #save profile picture
-    
-    file_path = os.path.join(UPLOAD_DIR,e_url.filename)
-    with open(file_path, "wb") as f:
-        f.write(e_url.file.read())
-    # inserting in mangodb
-    user_dict = dict(user)
-    user_dict["eUrl"] = file_path
+async def post_user(user: UserModel):
     collection_name.insert_one(dict(user))
 
